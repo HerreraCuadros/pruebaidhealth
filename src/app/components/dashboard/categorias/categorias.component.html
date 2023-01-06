@@ -1,0 +1,79 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3 col-guardar">
+      <h3 class="text-center">Crear Categoria</h3>
+      <br>
+      <form [formGroup]="nombreCategoria" (ngSubmit)=guardarCategoria()>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Ingrese Categoria" formControlName="nombre">
+          <div class="text-danger"
+            *ngIf="nombreCategoria.get('nombre')?.hasError('required') && nombreCategoria.get('nombre')?.touched">
+            La categoria <strong>es requerida</strong>
+          </div>
+        </div>
+        <div class="form-group">
+          <button [disabled]="nombreCategoria.invalid" class="btn btn-success float-left" type="submit">
+            Guardar
+          </button>
+        </div>
+        <br>
+        <br>
+      </form>
+
+    </div>
+    <div class="col-lg-3 col-editar">
+      <div *ngIf="modalSwitch === true">
+        <h3 class="text-center">Editar Categoria</h3>
+        <br>
+        <form [formGroup]="editarNombreCategoria" (ngSubmit)=editarCategoria(idCategoria)>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Ingrese Categoria" formControlName="nombre">
+          <div class="text-danger"
+            *ngIf="editarNombreCategoria.get('nombre')?.hasError('required') && editarNombreCategoria.get('nombre')?.touched">
+            La categoria <strong>es requerida</strong>
+          </div>
+        </div>
+        <div class="form-group">
+          <button [disabled]="editarNombreCategoria.invalid" class="btn btn-success float-left" type="submit">
+            Editar
+          </button>
+        </div>
+      </form>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <h3 class="text-center">Lista de Categorias</h3>
+      <app-loading *ngIf="loading"></app-loading>
+      <br>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Usuario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let categoria of listCategoria, index as i" >
+            <th scope="row">{{i + 1}}</th>
+            <td>{{categoria.nombre}}</td>
+            <td>{{categoria.usuario.nombre}}</td>
+            <td>
+              <!-- <span class="material-icons edit-icon" (click)="editarCategoria(categoria._id)">edit</span> -->
+              <span class="material-icons edit-icon" (click)="openModal(categoria._id)">edit</span>
+
+
+              <span class="material-icons delete-icon" (click)="eliminarCategoria(categoria._id)">delete</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- <div *ngIf="modalSwitch === true">
+  <app-modal></app-modal>
+</div> -->
+

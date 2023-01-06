@@ -1,0 +1,21 @@
+.col-guardar {
+  padding-right: 45px;
+  padding-left: 15px;
+}
+
+.col-editar {
+  padding-right: 45px;
+  padding-left: 15px;
+}
+
+.edit-icon {
+  font-size: 25px;
+  cursor: pointer;
+  color: green;
+}
+
+.delete-icon {
+  font-size: 25px;
+  cursor: pointer;
+  color: red;
+}

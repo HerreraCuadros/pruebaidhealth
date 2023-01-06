@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row" style="width: 100%">
+    <div class="col-lg-6 offset-lg-3">
+      <h1 class="text-center">Busqueda en colecciones</h1>
+      <br>
+      <form [formGroup]="buscaColeccion" (ngSubmit)=buscarColeccion()>
+        <div class="input-group inpt-grp">
+          <select class="custom-select form-control select-cust" formControlName="coleccion">
+            <!-- <option selected>Choose...</option> -->
+            <option selected value="usuarios">usuarios</option>
+            <option value="categorias">categorias</option>
+            <option value="productos">productos</option>
+            <!-- <option value="roles">roles</option> -->
+          </select>
+          <input type="text" class="form-control" placeholder="Buscar" formControlName="termino">
+
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon04" [disabled]="buscaColeccion.invalid">
+              <span class="material-icons search-icon">search</span>
+              </button>
+          </div>
+
+        </div>
+      </form>
+      <div class="row" style="text-align: start;">
+      <span class="text-danger ml-2"
+      *ngIf="buscaColeccion.get('coleccion')?.hasError('required') && buscaColeccion.get('coleccion')?.touched">
+      La coleccion <strong>es requerida</strong>
+    </span>
+    </div>
+      <div class="row" style="text-align: start;">
+        <span class="text-danger ml-2"
+          *ngIf="buscaColeccion.get('termino')?.hasError('required') && buscaColeccion.get('termino')?.touched">
+          El termino <strong>es requerido</strong>
+        </span>
+      </div>
+      <div class="text-center">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col"> </th>
+            <th scope="col">Resultados</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let resultados of resultadosEncontrados, index as i" >
+            <th scope="row">-</th>
+            <td>{{resultados.nombre}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3 col-guardar">
+      <h3 class="text-center">Crear Producto</h3>
+      <br>
+      <form [formGroup]="nombreProducto" (ngSubmit)=guardarProducto()>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Ingrese Producto" formControlName="nombre">
+          <div class="text-danger"
+            *ngIf="nombreProducto.get('nombre')?.hasError('required') && nombreProducto.get('nombre')?.touched">
+            El producto <strong>es requerido</strong>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="catg">Categorias</label>
+          <select class="custom-select form-control" formControlName="categoria" id="catg">
+            <option  *ngFor="let categoria of listCategoria, index as i" value={{categoria._id}} >{{categoria.nombre}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <button [disabled]="nombreProducto.invalid" class="btn btn-success float-left" type="submit">
+            Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="col-lg-3 col-editar">
+      <div *ngIf="modalSwitch === true">
+        <h3 class="text-center">Editar Producto</h3>
+        <br>
+        <form [formGroup]="editarNombreProducto" (ngSubmit)=editarProducto(idCategoria)>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Ingrese Producto" formControlName="nombre">
+            <div class="text-danger"
+              *ngIf="editarNombreProducto.get('nombre')?.hasError('required') && editarNombreProducto.get('nombre')?.touched">
+              El producto <strong>es requerido</strong>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="catg">Categorias</label>
+            <select class="custom-select form-control" formControlName="categoria" id="catg">
+              <option  *ngFor="let categoria of listCategoria, index as i" value={{categoria._id}}>{{categoria.nombre}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <button [disabled]="editarNombreProducto.invalid" class="btn btn-success float-left" type="submit">
+              Editar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <h3 class="text-center">Lista de Productos</h3>
+      <app-loading *ngIf="loading"></app-loading>
+      <br>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Usuario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let producto of listProducto, index as i" >
+            <th scope="row">{{i + 1}}</th>
+            <td>{{producto.nombre}}</td>
+            <td>{{producto.categoria.nombre}}</td>
+            <td>{{producto.usuario.nombre}}</td>
+            <td>
+              <span class="material-icons edit-icon" (click)="openModal(producto._id)">edit</span>
+              <span class="material-icons delete-icon" (click)="eliminarProducto(producto._id)">delete</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <h4>{{obtenerListCategoria()}}</h4> -->
+    </div>
+  </div>
+</div>
+
+

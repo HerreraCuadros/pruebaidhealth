@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 30vh;
+}
+
+.select-cust{
+  flex: 0.3 1 auto;
+  width: 10%;
+}
+
+.search-icon{
+  display: flex;
+}
+
+/* .inpt-grp{
+  margin-left: 15%;
+} */
